@@ -1,0 +1,31 @@
+# Local MT5 runtime output
+*.log
+*.runtime.ini
+*.pid
+*.tmp
+
+# Generated reports and caches
+reports/*.html
+reports/*.htm
+reports/*.xml
+reports/*.png
+reports/*.gif
+reports/*.csv
+reports/*.txt
+
+# Tick data is published as private GitHub Release assets
+*.zip
+*.tkc
+*.hc
+tick-data/
+
+# Local imports and Python cache
+import/*
+!import/.gitkeep
+__pycache__/
+*.pyc
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,5 @@
+InpSourceSymbol=XAUUSDm||XAUUSDm||0||XAUUSDm||N
+InpCustomSymbol=XAUUSDm_EX_ARCHIVE||XAUUSDm_EX_ARCHIVE||0||XAUUSDm_EX_ARCHIVE||N
+InpCustomPath=GoldResearch\\ExnessArchive||GoldResearch\\ExnessArchive||0||GoldResearch\\ExnessArchive||N
+InpCsvFile=GoldResearch\\Exness_XAUUSDm_sample_MT5_UTC.csv||GoldResearch\\Exness_XAUUSDm_sample_MT5_UTC.csv||0||GoldResearch\\Exness_XAUUSDm_sample_MT5_UTC.csv||N
+InpBatchSize=200000||200000||1||2000000||N

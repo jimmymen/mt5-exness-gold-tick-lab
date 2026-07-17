@@ -1,0 +1,16 @@
+InpEnableTrading=true
+InpMagic=26071602
+InpSignalTimeframe=15
+InpTrendTimeframe=16385
+InpTrendFastPeriod=50
+InpTrendSlowPeriod=200
+InpPullbackEmaPeriod=20
+InpAtrPeriod=14
+InpStopAtrMultiple=1.5
+InpRewardRisk=2.0
+InpRiskPercent=0.25
+InpMaxSpreadPrice=0.50
+InpTradeStartHour=7
+InpTradeEndHour=20
+InpForceExitHour=22
+InpMaxDeviationPoints=100
