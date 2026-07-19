@@ -55,13 +55,13 @@ h1{{font:700 30px/1.1 system-ui;margin:0}}.muted{{color:var(--muted)}}.gate{{mar
 .label{{color:var(--muted);font-size:12px;text-transform:uppercase}}.value{{font-size:20px;margin-top:5px}}table{{width:100%;border-collapse:collapse;background:var(--panel)}}th,td{{border:1px solid var(--line);padding:10px;text-align:left}}th{{color:var(--muted)}}.ok{{color:var(--ok)}}.bad{{color:var(--bad)}}code{{color:#9dd7ff}}ul{{padding-left:20px}}
 </style></head><body><main><header><div><h1>MT5 连续研发控制台</h1><div class="muted">Alignment first. Development is blocked until parity passes.</div></div><div class="muted">UTC {html.escape(updated)}</div></header>
 <div class="gate">{gate}</div><div class="grid"><div class="card"><div class="label">Current phase</div><div class="value">{phase}</div></div>
-<div class="card"><div class="label">Worker state</div><div class="value">{message}</div></div><div class="card"><div class="label">Dataset</div><div class="value">XAUUSDm_EXNESS_V2</div></div>
+<div class="card"><div class="label">Worker state</div><div class="value">{message}</div></div><div class="card"><div class="label">Alignment symbol</div><div class="value">XAUUSDm</div></div>
 <div class="card"><div class="label">Formal mode</div><div class="value">Model=4</div></div></div>
 <h2>对齐检查</h2><table><thead><tr><th>Layer</th><th>Status</th><th>Differences</th></tr></thead><tbody>{check_rows}</tbody></table>
 <h2>等待的 GUI 产物</h2><ul>{missing_html or '<li>None</li>'}</ul>
 <h2>GUI 对齐操作</h2><ol>
 <li>打开 MT5 策略测试器，EA选择 <code>GoldResearch\\ParityHarness</code>。</li>
-<li>品种选择 <code>XAUUSDm_EXNESS_V2</code>，周期选择 <code>M1</code>。</li>
+<li>品种选择原始 <code>XAUUSDm</code>，周期选择 <code>M1</code>。</li>
 <li>模式选择 <code>每个点基于实时点</code>，日期设为 <code>2026.07.13</code> 至 <code>2026.07.17</code>。</li>
 <li>关闭优化，执行延迟选择“无延迟”，入金 <code>10000 USD</code>，杠杆 <code>1:100</code>。</li>
 <li>加载 <code>parity-gui.set</code>，确认 <code>InpRunLabel=gui</code> 后运行。</li>

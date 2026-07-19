@@ -66,6 +66,8 @@ The parity harness compares three layers:
 2. Per-day Tick counts and integer fingerprints of timestamp, Bid, and Ask.
 3. Every deal's millisecond, direction, entry type, volume, price, commission, swap, and profit.
 
+The alignment run uses the original broker symbol `XAUUSDm` inside its native real-Tick coverage. Long-history research uses `XAUUSDm_EXNESS_V2`, and every promoted strategy must pass both environments.
+
 The Windows dashboard is available at:
 
 ```text

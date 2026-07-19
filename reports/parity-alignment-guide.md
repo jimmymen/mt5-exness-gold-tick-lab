@@ -5,7 +5,7 @@ Continuous strategy development is blocked until a manual MT5 GUI run exactly ma
 ## GUI settings
 
 - Expert Advisor: `GoldResearch\ParityHarness`
-- Symbol: `XAUUSDm_EXNESS_V2`
+- Symbol: original broker symbol `XAUUSDm`
 - Period: `M1`
 - Modeling: `每个点基于实时点`
 - From: `2026.07.13`
