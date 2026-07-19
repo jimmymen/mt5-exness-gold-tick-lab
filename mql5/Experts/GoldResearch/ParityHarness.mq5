@@ -4,7 +4,7 @@
 
 #include <Trade/Trade.mqh>
 
-input string InpRunLabel = "auto";
+input string InpRunLabel = "gui";
 input ulong InpMagic = 26071701;
 input double InpVolume = 0.01;
 input int InpOpenHourUtc = 8;
