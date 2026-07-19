@@ -55,3 +55,21 @@ Date,Time,Bid,Ask,Last,Volume
 ```
 
 Do not commit account logs, credentials, terminal caches, raw Tick files, or generated reports. The repository `.gitignore` excludes these artifacts.
+
+## Alignment gate
+
+Continuous strategy development is paused until the automatic command-line MT5 run exactly matches a manual MT5 GUI run.
+
+The parity harness compares three layers:
+
+1. Tester summary fields and Tick boundaries.
+2. Per-day Tick counts and integer fingerprints of timestamp, Bid, and Ask.
+3. Every deal's millisecond, direction, entry type, volume, price, commission, swap, and profit.
+
+The Windows dashboard is available at:
+
+```text
+http://127.0.0.1:8765/development-dashboard.html
+```
+
+Development remains blocked unless all layers pass. See [`reports/parity-alignment-guide.md`](reports/parity-alignment-guide.md).
