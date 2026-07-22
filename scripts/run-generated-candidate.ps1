@@ -262,6 +262,14 @@ Move-Item $temporary $registryPath -Force
     $registryMutex.Dispose()
 }
 try {
+    if ($decision -eq "PUBLISH") {
+        & $python (Join-Path $projectRoot "tools\send_feishu_strategy.py") `
+            --credentials "C:\ProgramData\MT5GoldResearch\feishu-credentials.json" `
+            --registry $registryPath --strategy-id $id
+        if ($LASTEXITCODE -ne 0) { throw "Detailed Feishu strategy notification failed" }
+        Write-Output "ID=$id DEVELOPMENT_PASS=$developmentPass OOS_PASS=$oosPass"
+        exit 0
+    }
     $notification = @{
         Id = $id
         Decision = $decision

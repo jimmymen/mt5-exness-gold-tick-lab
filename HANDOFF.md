@@ -79,6 +79,9 @@ development and OOS metrics, daily coverage, and dashboard URL. A Feishu outage
 only writes a warning and never changes the MT5 result or stops research.
 Tenant `user_id` delivery uses the existing enterprise bot v4 endpoint so it does
 not require contact-directory field access; other ID types use the current IM API.
+Published strategies are sent in Chinese with detailed development/OOS metrics,
+ranking information, and two PNG balance-curve images uploaded through Feishu's
+image API. Notification failures remain non-fatal to MT5 research.
 
 ## Parallel testing status
 
