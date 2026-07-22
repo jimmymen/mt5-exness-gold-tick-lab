@@ -45,10 +45,18 @@ if ($Decision -ne "REJECT_DEVELOPMENT") {
 if (-not [string]::IsNullOrWhiteSpace([string]$credentials.dashboard_url)) {
     $lines += "Dashboard: $($credentials.dashboard_url)"
 }
+if (-not [string]::IsNullOrWhiteSpace([string]$credentials.ranking_url)) {
+    $lines += "Curve ranking: $($credentials.ranking_url)"
+}
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-if ([string]::IsNullOrWhiteSpace([string]$credentials.chat_id)) {
-    throw "Feishu target chat_id is not configured"
+$receiveIdType = [string]$credentials.receive_id_type
+$receiveId = [string]$credentials.receive_id
+if ($receiveIdType -notin @("email", "open_id", "user_id", "union_id")) {
+    throw "Feishu direct-message recipient type is not configured"
+}
+if ([string]::IsNullOrWhiteSpace($receiveId)) {
+    throw "Feishu direct-message recipient is not configured"
 }
 $tokenBody = @{ app_id = $credentials.app_id; app_secret = $credentials.app_secret } |
     ConvertTo-Json -Compress
@@ -58,13 +66,13 @@ $token = Invoke-RestMethod -Method Post `
     -Body ([Text.Encoding]::UTF8.GetBytes($tokenBody))
 if ([int]$token.code -ne 0) { throw "Feishu token request failed: $($token.msg)" }
 $payload = @{
-    receive_id = [string]$credentials.chat_id
+    receive_id = $receiveId
     msg_type = "text"
     content = (@{ text = $lines -join "`n" } | ConvertTo-Json -Compress)
 } | ConvertTo-Json -Compress
 $headers = @{ Authorization = "Bearer $($token.tenant_access_token)" }
 $response = Invoke-RestMethod -Method Post `
-    -Uri "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id" `
+    -Uri "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=$receiveIdType" `
     -Headers $headers -ContentType "application/json; charset=utf-8" `
     -Body ([Text.Encoding]::UTF8.GetBytes($payload))
 if ([int]$response.code -ne 0) { throw "Feishu message rejected: $($response.msg)" }

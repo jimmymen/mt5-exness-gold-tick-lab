@@ -7,6 +7,7 @@ $reports = Join-Path $projectRoot "reports"
 $registryPath = Join-Path $reports "research-registry.json"
 $statePath = Join-Path $reports "development-state.json"
 $dashboard = Join-Path $reports "development-dashboard.html"
+$rankingDashboard = Join-Path $reports "ranked-strategies.html"
 $parity = Join-Path $reports "parity-result.json"
 $candidates = Join-Path $projectRoot "mql5\Experts\GoldResearch\Generated"
 $template = Join-Path $projectRoot "mql5\Experts\GoldResearch\AdaptiveDailyStrategy.mq5"
@@ -29,6 +30,8 @@ function Save-JsonAtomic([string]$Path, $Value) {
 function Render-Dashboard {
     & $python (Join-Path $projectRoot "tools\render_development_dashboard.py") `
         --state $statePath --parity $parity --registry $registryPath --output $dashboard
+    & $python (Join-Path $projectRoot "tools\render_ranked_strategy_dashboard.py") `
+        --registry $registryPath --output $rankingDashboard
 }
 
 function Set-State([string]$Message, [string]$ErrorMessage = "") {

@@ -131,3 +131,11 @@ the prior candidate finishes; there is no hourly throttle.
 
 See [`HANDOFF.md`](HANDOFF.md) for continuing from another computer or coding
 agent and for configuring server-side Feishu result notifications.
+
+The dashboard links to a separate authenticated ranking page in a new browser
+tab. It ranks current-policy published strategies by realized-balance curve
+quality first and combined development/OOS profit second. Curve quality penalizes
+maximum balance drawdown, sustained drawdown pain, consecutive losing closes, and
+consecutive loss depth; OOS receives 60% weight. It also penalizes MT5's official
+maximum equity drawdown because the curve CSV contains realized balance at closing
+deals rather than mark-to-market equity.

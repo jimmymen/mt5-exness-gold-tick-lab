@@ -13,15 +13,15 @@ try {
     if ([string]::IsNullOrWhiteSpace($appId) -or [string]::IsNullOrWhiteSpace($appSecret)) {
         throw "App ID and App Secret must not be empty"
     }
-    $chatId = Read-Host "Enter the target chat_id (leave empty, then use list-feishu-chats.ps1)"
-    $dashboardUrl = Read-Host "Dashboard URL (optional)"
     @{
         mode = "app"
         app_id = $appId
         app_secret = $appSecret
-        chat_id = $chatId
-        notify_rejections = $true
-        dashboard_url = $dashboardUrl
+        receive_id_type = ""
+        receive_id = ""
+        notify_rejections = $false
+        dashboard_url = ""
+        ranking_url = ""
         configured_utc = (Get-Date).ToUniversalTime().ToString("o")
     } | ConvertTo-Json | Set-Content $path -Encoding ascii
 } finally {
@@ -29,4 +29,4 @@ try {
     $appSecret = $null
 }
 & icacls $path /inheritance:r /grant:r "SYSTEM:F" "Administrators:F" | Out-Null
-Write-Output "Feishu application credentials saved in the restricted server file."
+Write-Output "Feishu application credentials saved. Run set-feishu-recipient.ps1 next."

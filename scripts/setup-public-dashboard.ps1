@@ -46,7 +46,7 @@ $Hostname {
         @root path /
         redir @root /development-dashboard.html
 
-        @published path /development-dashboard.html /LongTrendBreakout.mq5 /published/*
+        @published path /development-dashboard.html /ranked-strategies.html /LongTrendBreakout.mq5 /published/*
         basic_auth @published {
             $username $passwordHash
         }

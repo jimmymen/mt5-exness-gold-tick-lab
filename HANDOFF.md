@@ -63,15 +63,15 @@ the Windows server desktop:
 powershell -ExecutionPolicy Bypass -File C:\QuantResearch\mt5-gold-research\scripts\set-feishu-credentials.ps1
 ```
 
-Enter the App ID, rotated App Secret, and optionally the target `chat_id`
-interactively. They are stored in
+Enter the App ID and rotated App Secret interactively. They are stored in
 `C:\ProgramData\MT5GoldResearch\feishu-credentials.json` with access restricted
 to `SYSTEM` and `Administrators`.
 
-If the `chat_id` is not known, list the groups visible to the bot and select one:
+Configure a direct-message recipient using a Feishu email, application-scoped
+`open_id`, `user_id`, or `union_id`:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File C:\QuantResearch\mt5-gold-research\scripts\list-feishu-chats.ps1
+powershell -ExecutionPolicy Bypass -File C:\QuantResearch\mt5-gold-research\scripts\set-feishu-recipient.ps1
 ```
 
 Each completed candidate sends its ID, publication/rejection decision,
