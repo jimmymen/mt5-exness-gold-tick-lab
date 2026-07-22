@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $terminalData = "C:\Users\Administrator\AppData\Roaming\MetaQuotes\Terminal\D0E8209F77C8CF37AD8BF550E51FF075"
+$testerData = "C:\Users\Administrator\AppData\Roaming\MetaQuotes\Tester"
 $reports = Join-Path $projectRoot "reports"
 $statusPath = Join-Path $reports "storage-maintenance.json"
 $removedBytes = 0L
@@ -22,6 +23,10 @@ function Remove-RebuildableFiles([System.IO.FileInfo[]]$Files) {
 if (-not (Get-Process terminal64 -ErrorAction SilentlyContinue)) {
     Remove-RebuildableFiles @(
         Get-ChildItem (Join-Path $terminalData "Tester\logs") -File -Filter "*.log" `
+            -ErrorAction SilentlyContinue
+    )
+    Remove-RebuildableFiles @(
+        Get-ChildItem $testerData -File -Filter "*.log" -Recurse `
             -ErrorAction SilentlyContinue
     )
 }

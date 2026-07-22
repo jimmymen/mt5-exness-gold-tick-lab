@@ -106,8 +106,13 @@ Visual=0
     $curve = Join-Path $commonPublished "$outputName-equity.csv"
     Remove-Item $coverage, $curve -Force -ErrorAction SilentlyContinue
     Get-Process terminal64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq $terminal } | Stop-Process -Force
+    Get-Process metatester64 -ErrorAction SilentlyContinue |
+        Where-Object { $_.Path -eq (Join-Path (Split-Path $terminal) "metatester64.exe") } |
+        Stop-Process -Force
     Get-ChildItem (Join-Path $terminalData "Tester\logs") -File -Filter "*.log" `
         -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
+    Get-ChildItem (Join-Path $administratorAppData "MetaQuotes\Tester") -File -Filter "*.log" `
+        -Recurse -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 3
     $terminalArgs = @("/config:$runtimeConfig")
     $test = Start-Process $terminal -ArgumentList $terminalArgs -Wait -PassThru
