@@ -1,0 +1,9 @@
+{
+  "chinese_name": "黄金每日动量方向种子策略",
+  "explanation_zh": "每个有行情的UTC交易日在首个可交易Tick必须开仓一次。过去5日收盘上涨则做多，否则做空；持有8小时后平仓，并使用2倍14日ATR保护止损。该固定种子仅用于验证每日覆盖率硬规则。",
+  "direction_mode": 0,
+  "direction_lookback": 5,
+  "hold_hours": 8,
+  "atr_period": 14,
+  "stop_atr": 2.0
+}

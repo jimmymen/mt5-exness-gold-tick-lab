@@ -26,15 +26,24 @@ The preset is installed at:
 
 ## Automatic baseline
 
-- Ticks: 1,145,651
-- First millisecond: 1,783,900,800,009
-- Last millisecond: 1,784,211,350,276
+- Terminal build: 5836
+- Ticks: 1,247,151
 - Trades: 4
 - Deals: 8
-- Net profit: 11.56 USD
-- Final balance: 10,011.56 USD
+- Net profit: 11.48 USD
+- Final balance: 10,011.48 USD
 
 These numbers are informational only. The gate compares the generated CSV artifacts directly and does not trust manually transcribed values.
+
+## Manual GUI evidence received on 2026-07-19
+
+The user supplied a Build 5833 Tester report and all eight displayed deals. Tick,
+trade, and deal counts match the automatic baseline, but all eight displayed deal
+prices differ. GUI net profit is `12.43 USD`, versus `11.48 USD` automatically.
+The manually transcribed report has second-resolution times and no daily Tick
+fingerprints, so it proves a parity failure but cannot identify its data/build
+root cause. The gate remains failed until native CSV artifacts from matching MT5
+builds compare exactly.
 
 ## Gate
 
@@ -52,4 +61,5 @@ The continuous worker checks every 30 seconds. It compares:
 2. Per-day Tick counts and integer fingerprints of time, Bid, and Ask.
 3. Every deal's millisecond, side, entry type, volume, price, commission, swap, and profit.
 
-Development remains blocked unless all three layers pass exactly.
+Exact parity remains failed unless all three layers pass. A separately recorded
+user policy exception permits current research without relabeling this evidence.

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "rule": "daily-split-v1",
+  "attempted": 0,
+  "rejected": 0,
+  "failed": 0,
+  "attempted_specs": [],
+  "published": [],
+  "historical": [],
+  "evaluations": []
+}

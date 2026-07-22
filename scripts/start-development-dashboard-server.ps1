@@ -3,7 +3,8 @@ $ErrorActionPreference = "Stop"
 $taskName = "MT5 Gold Research - Development Dashboard"
 $runner = "C:\QuantResearch\mt5-gold-research\scripts\run-development-dashboard-server.cmd"
 $action = New-ScheduledTaskAction -Execute $runner
-$principal = New-ScheduledTaskPrincipal -UserId "Administrator" -LogonType Interactive -RunLevel Highest
+$trigger = New-ScheduledTaskTrigger -AtStartup
+$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 $settings = New-ScheduledTaskSettingsSet `
     -ExecutionTimeLimit ([TimeSpan]::Zero) `
     -RestartCount 10 `
@@ -12,6 +13,7 @@ $settings = New-ScheduledTaskSettingsSet `
 Register-ScheduledTask `
     -TaskName $taskName `
     -Action $action `
+    -Trigger $trigger `
     -Principal $principal `
     -Settings $settings `
     -Force | Out-Null

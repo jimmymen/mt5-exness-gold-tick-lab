@@ -1,4 +1,4 @@
-InpEnableTrading=true
+InpEnableTrading=false
 InpMagic=26071602
 InpSignalTimeframe=15
 InpTrendTimeframe=16385

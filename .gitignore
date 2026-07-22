@@ -12,6 +12,14 @@ reports/*.png
 reports/*.gif
 reports/*.csv
 reports/*.txt
+/reports/research-registry.json
+/reports/development-state.json
+/reports/alignment-state.json
+/reports/parity-result.json
+/reports/storage-maintenance.json
+/reports/current-ai-spec*.json
+/reports/published/
+/mql5/Experts/GoldResearch/Generated/
 
 # Tick data is published as private GitHub Release assets
 *.zip

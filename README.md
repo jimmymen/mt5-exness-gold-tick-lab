@@ -10,6 +10,7 @@ Auditable MQL5 strategy research and Exness `XAUUSDm` Bid/Ask Tick processing fo
 - Accepted Tick count: `249,744,134`.
 - Final data ZIP files are distributed as private GitHub Release assets, not Git objects.
 - `TrendPullback` formal real-Tick result: rejected, PF `0.912510`.
+- GUI parity evidence from terminal build 5833 does not match the build 5836 automatic baseline: `12.43 USD` versus `11.48 USD`. The failure remains visible, while a user-approved policy exception allows research to continue.
 
 ## Invariants
 
@@ -58,7 +59,9 @@ Do not commit account logs, credentials, terminal caches, raw Tick files, or gen
 
 ## Alignment gate
 
-Continuous strategy development is paused until the automatic command-line MT5 run exactly matches a manual MT5 GUI run.
+Exact GUI/automatic parity has not been achieved. The failed evidence is retained
+and displayed separately from the user-approved policy exception that permits
+current research to continue.
 
 The parity harness compares three layers:
 
@@ -66,7 +69,8 @@ The parity harness compares three layers:
 2. Per-day Tick counts and integer fingerprints of timestamp, Bid, and Ask.
 3. Every deal's millisecond, direction, entry type, volume, price, commission, swap, and profit.
 
-The alignment run uses the original broker symbol `XAUUSDm` inside its native real-Tick coverage. Long-history research uses `XAUUSDm_EXNESS_V2`, and every promoted strategy must pass both environments.
+The alignment run uses the original broker symbol `XAUUSDm` inside its native
+real-Tick coverage. Long-history research uses `XAUUSDm_EXNESS_V2`.
 
 The Windows dashboard is available at:
 
@@ -74,4 +78,56 @@ The Windows dashboard is available at:
 http://127.0.0.1:8765/development-dashboard.html
 ```
 
-Development remains blocked unless all layers pass. See [`reports/parity-alignment-guide.md`](reports/parity-alignment-guide.md).
+An authenticated public HTTPS proxy can be installed with
+`scripts/setup-public-dashboard.ps1`. It exposes the dashboard and authenticated
+published strategy downloads; generated credentials remain in a restricted
+server-local file and must not be committed.
+
+Exact parity remains failed unless all layers pass. See [`reports/parity-alignment-guide.md`](reports/parity-alignment-guide.md).
+
+On 2026-07-19 the user explicitly accepted the observed Build 5833/5836 parity
+difference and authorized strategy research to proceed. The parity result remains
+recorded as failed evidence; this authorization does not relabel it as an exact
+match.
+
+The first fixed-parameter candidate, `LongTrendBreakout`, produced a positive
+historical full-period result before the current split policy. See
+`reports/2026-07-19-long-trend-breakout-v1.md` for results and limitations.
+
+## Continuous AI research
+
+The Windows server runs `MT5 Gold Research - AI Worker` continuously. It starts
+the next candidate ten seconds after the previous result. AI output is limited
+to a constrained indicator specification; the server renders a fixed tester-only
+MQL5 template and rejects forbidden capabilities,
+requires compilation with zero errors and zero warnings, and runs `Model=4` on
+`XAUUSDm_EXNESS_V2` from `2021.07.02`. A candidate is published only when net
+profit is positive and every UTC day containing Ticks has at least one successful
+entry (`missing_days=0`, 100% coverage). The worker never enables live trading.
+
+AI credentials live only in the ACL-restricted server file
+`C:\ProgramData\MT5GoldResearch\ai-credentials.json`. Configure a new key from
+the server desktop using `配置AI接口.cmd`; never commit or paste the key into a
+chat or command line.
+
+The configured AI model is the official `deepseek-v4-pro` endpoint with thinking
+enabled and `reasoning_effort=high`.
+
+The current DeepSeek loop is generational rather than a parameter lottery. It
+receives recent structured development/OOS evaluations, diagnoses failure,
+states a falsifiable hypothesis, cites a parent generation, and proposes changed
+signal composition, volatility regime behavior, exit, target, and trailing-stop
+logic. The server renders that constrained DSL through a fixed tester-only MQL5
+template; AI still cannot execute commands or bypass coverage, split, blind-period,
+or live-trading controls.
+
+The fixed chronological split is development `2021.07.02-2024.01.09` (50%),
+out-of-sample `2024.01.09-2025.04.13` (25%), and locked blind period
+`2025.04.13-2026.07.17` (25%). Automation must never create an INI or Tester run
+covering the blind period. The worker starts the next candidate ten seconds after
+the prior candidate finishes; there is no hourly throttle.
+
+## Handoff and notifications
+
+See [`HANDOFF.md`](HANDOFF.md) for continuing from another computer or coding
+agent and for configuring server-side Feishu result notifications.

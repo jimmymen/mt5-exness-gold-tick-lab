@@ -1,0 +1,11 @@
+InpMagic=26071901
+InpVolume=0.01
+InpSignalTimeframe=16408
+InpTrendEmaPeriod=200
+InpEntryLookback=100
+InpExitLookback=50
+InpAtrPeriod=14
+InpStopAtrMultiple=3.0
+InpMaxSpreadPrice=1.00
+InpMaxDeviationPoints=100
+InpOutputName=LongTrendBreakout
