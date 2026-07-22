@@ -65,14 +65,26 @@ $token = Invoke-RestMethod -Method Post `
     -ContentType "application/json; charset=utf-8" `
     -Body ([Text.Encoding]::UTF8.GetBytes($tokenBody))
 if ([int]$token.code -ne 0) { throw "Feishu token request failed: $($token.msg)" }
-$payload = @{
-    receive_id = $receiveId
-    msg_type = "text"
-    content = (@{ text = $lines -join "`n" } | ConvertTo-Json -Compress)
-} | ConvertTo-Json -Compress
 $headers = @{ Authorization = "Bearer $($token.tenant_access_token)" }
-$response = Invoke-RestMethod -Method Post `
-    -Uri "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=$receiveIdType" `
-    -Headers $headers -ContentType "application/json; charset=utf-8" `
+$messageText = $lines -join "`n"
+if ($receiveIdType -eq "user_id") {
+    # Existing enterprise bots can address tenant user IDs through the legacy
+    # message endpoint without requesting contact-directory field access.
+    $payload = @{
+        user_id = $receiveId
+        msg_type = "text"
+        content = @{ text = $messageText }
+    } | ConvertTo-Json -Depth 4 -Compress
+    $uri = "https://open.feishu.cn/open-apis/message/v4/send/"
+} else {
+    $payload = @{
+        receive_id = $receiveId
+        msg_type = "text"
+        content = (@{ text = $messageText } | ConvertTo-Json -Compress)
+    } | ConvertTo-Json -Compress
+    $uri = "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=$receiveIdType"
+}
+$response = Invoke-RestMethod -Method Post -Uri $uri -Headers $headers `
+    -ContentType "application/json; charset=utf-8" `
     -Body ([Text.Encoding]::UTF8.GetBytes($payload))
 if ([int]$response.code -ne 0) { throw "Feishu message rejected: $($response.msg)" }

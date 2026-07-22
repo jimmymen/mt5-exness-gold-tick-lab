@@ -77,6 +77,8 @@ powershell -ExecutionPolicy Bypass -File C:\QuantResearch\mt5-gold-research\scri
 Each completed candidate sends its ID, publication/rejection decision,
 development and OOS metrics, daily coverage, and dashboard URL. A Feishu outage
 only writes a warning and never changes the MT5 result or stops research.
+Tenant `user_id` delivery uses the existing enterprise bot v4 endpoint so it does
+not require contact-directory field access; other ID types use the current IM API.
 
 ## Parallel testing status
 
