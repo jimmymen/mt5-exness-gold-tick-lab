@@ -270,25 +270,6 @@ try {
         Write-Output "ID=$id DEVELOPMENT_PASS=$developmentPass OOS_PASS=$oosPass"
         exit 0
     }
-    $notification = @{
-        Id = $id
-        Decision = $decision
-        DevelopmentProfit = $development.profit
-        DevelopmentProfitFactor = $development.profit_factor
-        DevelopmentDrawdown = $development.equity_dd_pct
-        DevelopmentActiveDays = $development.active_days
-        DevelopmentCoveredDays = $development.covered_days
-        DevelopmentMissingDays = $development.missing_days
-    }
-    if ($null -ne $oos) {
-        $notification.OosProfit = $oos.profit
-        $notification.OosProfitFactor = $oos.profit_factor
-        $notification.OosDrawdown = $oos.equity_dd_pct
-        $notification.OosActiveDays = $oos.active_days
-        $notification.OosCoveredDays = $oos.covered_days
-        $notification.OosMissingDays = $oos.missing_days
-    }
-    & (Join-Path $PSScriptRoot "send-feishu-result.ps1") @notification
 } catch {
     Write-Warning "Feishu notification failed without interrupting research: $($_.Exception.Message)"
 }
